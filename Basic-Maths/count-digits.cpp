@@ -3,13 +3,18 @@ using namespace std;
 
 int main() {
 
-    int num, count = 0;
+    // Brute Force Approach
+    int num, n, count = 0;
     cin >> num;
-    while(num > 0) {
+    n = num;
+    while(n > 0) {
         count++;
-        num/=10;
+        n/=10;
     }
+    cout << count << endl;
 
-    cout << count;
+    //  Optimal Approach;
+    cout << (int)(log10(num) + 1);
+
     return 0;
 }
