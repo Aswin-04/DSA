@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// TC --> O(log10(n))
+
 int main() {
 
     int num, revNum = 0;

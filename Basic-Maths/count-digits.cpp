@@ -3,7 +3,9 @@ using namespace std;
 
 int main() {
 
-    // Brute Force Approach
+
+
+    // Brute Force Approach TC --> O(log10(n))
     int num, n, count = 0;
     cin >> num;
     n = num;
@@ -13,7 +15,7 @@ int main() {
     }
     cout << count << endl;
 
-    //  Optimal Approach;
+    //  Optimal Approach TC --> O(1)
     cout << (int)(log10(num) + 1);
 
     return 0;

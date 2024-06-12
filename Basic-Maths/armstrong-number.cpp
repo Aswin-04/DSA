@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
+// TC --> O(log10(n))
 bool isArmstrong(int n) {
 
     int num = n;

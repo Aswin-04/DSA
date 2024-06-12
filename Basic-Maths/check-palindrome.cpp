@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
+// TC --> O(log10(n))
 bool checkPalindrome(int n) {
     int givenNum = n;
     int lastDigit, revNum = 0;
