@@ -7,6 +7,7 @@ int main() {
 
     int num, revNum = 0;
     cin >> num;
+    int n = num;
 
     while(num > 0) {
         int lastDigit = num%10;
@@ -14,7 +15,7 @@ int main() {
         revNum  = (revNum * 10) + lastDigit;
         num/=10; 
     }
-    cout << revNum;
+    cout << "Reverse of "<< n << " is " << revNum;
 
     return 0;
 }

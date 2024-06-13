@@ -15,6 +15,7 @@ void printDivisors1(int n) {
     }
     divisors.emplace_back(n);
 
+    cout << "Divisors of " << n << " are ";
     for(auto it : divisors) {
         cout << it << " ";
     }
@@ -32,9 +33,10 @@ void printDivisors2(int n) {
     for(int i=1; i <= sqrtN; i++) {
         if(n%i == 0) {
             v.emplace_back(i);
-        }
-        if(n/i != i) {
-            v.emplace_back(n/i);
+
+            if(n/i != i) {
+                v.emplace_back(n/i);
+            }
         }
     }
 
@@ -42,6 +44,7 @@ void printDivisors2(int n) {
     sort(v.begin(), v.end());
 
     // O(n) , where n is the no of factors
+    cout << "Divisors of " << n << " are ";
     for(auto it : v) {
         cout << it << " ";
     }

@@ -28,8 +28,21 @@ int main() {
 
     int n;
     cin >> n;
-    cout << isPrime1(n);
+    if(isPrime1(n)) {
+        cout << "The given number is a Prime Number";
+    }
+    else {
+        cout << "The given number is not a Prime Number";
+    }
+
     cout << endl;
-    cout << isPrime2(n);    
+
+    if(isPrime1(n)) {
+        cout << "The given number is a Prime Number";
+    }
+    else {
+        cout << "The given number is not a Prime Number";
+    }
+       
     return 0;
 }

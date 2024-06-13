@@ -19,7 +19,13 @@ int main() {
 
     int n;
     cin >> n;
-    cout << checkPalindrome(n);
+    if(checkPalindrome(n)) {
+        cout << "The given number is a Numeric Palindrome";
+    }
+
+    else {
+        cout << "The given number is not a Numeric Palindrome";
+    }
 
     return 0;
 }

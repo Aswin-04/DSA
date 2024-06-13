@@ -13,9 +13,11 @@ int main() {
         count++;
         n/=10;
     }
+    cout << "Number of Digits: ";
     cout << count << endl;
 
     //  Optimal Approach TC --> O(1)
+    cout << "Number of Digits: ";
     cout << (int)(log10(num) + 1);
 
     return 0;
