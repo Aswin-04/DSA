@@ -3,7 +3,7 @@ using namespace std;
 
 // To remove duplicates from a sorted array
 
-// Brute force appraoch
+// Brute force approach
 // TC --> O(n log n + n)
 // SC --> O(n) where n is the size of the set
 
