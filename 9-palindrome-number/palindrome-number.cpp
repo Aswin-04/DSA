@@ -4,13 +4,14 @@ public:
         
         if(x < 0) return false;
         int num = x;
-        long long ans = 0;
+        int ans = 0;
 
         while(num) {
+            if(ans > INT_MAX/10) return false;
             ans = (ans*10) + (num%10);
             num/=10;
         }
 
-        return ans == x;
+        return (ans == x);
     }
 };
