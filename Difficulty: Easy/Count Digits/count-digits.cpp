@@ -9,6 +9,7 @@ class Solution {
     // Function to count the number of digits in n that evenly divide n
     int evenlyDivides(int n) {
         // code here
+        // test
         int cnt = 0;
         int temp = n;
         while(temp) {
