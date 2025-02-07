@@ -7,16 +7,11 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    vector<long long> factorialNumbers(long long n) {
-        // Write Your Code here
-        long long fact = 1;
-        vector<long long> ans;
-        for(int i=1; fact*i <= n; i++) {
-            fact*=i;
-            ans.push_back(fact);
-        }
-        
-        return ans;
+    vector<long long> factorialNumbers(long long n, long long fact=1, vector<long long> ans={}, long long a=1) {
+        if((fact) > n) return ans;
+        ans.push_back(fact);
+        return factorialNumbers(n, fact*(a+1), ans, a+1);
+
     }
 };
 
