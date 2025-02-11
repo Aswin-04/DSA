@@ -17,17 +17,18 @@ public:
 
         int low = bp+1;
         int high = n-1;
-        int index = -1;
+        int sm = bp+1;
+
         while(low <= high) {
             int mid = low + ((high-low) >> 1);
             if(nums[mid] > nums[bp]) {
-                index = mid;
+                sm = mid;
                 low = mid+1;
             }
             else high = mid-1;
         }
 
-        swap(nums[bp], nums[index]);
+        swap(nums[bp], nums[sm]);
         reverse(nums.begin()+bp+1, nums.end());
     }
 };
