@@ -9,21 +9,23 @@ class Solution {
   public:
 
     // Function to return length of longest subsequence of consecutive integers.
+    // TC --> O ( N )
+    // SC --> O ( N )
     int longestConsecutive(vector<int>& arr) {
         // Your code here
-        sort(arr.begin(), arr.end());
-        int n = arr.size();
-        int cnt = 1;
-        int max_cnt = 1;
+        unordered_set<int> st;
+        for(int i: arr) st.insert(i);
         
-        for(int i=1; i < n; i++) {
-            if(arr[i]-1 == arr[i-1]) {
+        int max_cnt = 1;
+        for(int it: st) {
+            if(st.find(it-1) != st.end()) continue;
+            int cnt = 1;
+            int increment = 1;
+            while(st.find(it+increment) != st.end()) {
                 cnt++;
+                increment++;
                 max_cnt = max(max_cnt, cnt);
             }
-            
-            else if(arr[i] == arr[i-1]) continue;
-            else cnt = 1;
         }
         
         return max_cnt;
