@@ -15,7 +15,6 @@ public:
             cnt++;
             temp = temp->next;
         }
-
         return cnt;
     }
 
@@ -37,14 +36,12 @@ public:
             tempB = tempB->next;
         }
 
-        if(tempA == tempB) return tempA;
-
         while(tempA && tempB) {
-            if(tempA->next == tempB->next) return tempA->next;
+            if(tempA == tempB) break;
             tempA = tempA->next;
             tempB = tempB->next;
         }
 
-        return nullptr;
+        return tempA;
     }
 };
