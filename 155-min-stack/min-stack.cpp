@@ -1,44 +1,41 @@
-class Node {
-    public:
-        pair<int, int> data;
-        Node* next;
-        Node(int value, int mini, Node* next=nullptr): data({value, mini}), next(next) {}
-};
-
 class MinStack {
 public:
-    Node* head;
-    int mini;
 
-    MinStack() {
-        head=nullptr;
-        mini=INT_MAX;
-    }
+    long long mini = INT_MAX;
+    stack<long long> st;
+
+    MinStack() {}
     
     void push(int val) {
-        mini = min(mini, val);
-        Node* newNode = new Node(val, mini);
-        if(!head) head = newNode;
+        if(st.empty()) {
+            mini = val;
+            st.push(val);
+        }
+
         else {
-            newNode->next = head;
-            head = newNode;
+            if(val < mini) {
+                st.push(2LL*val - mini);
+                mini = val;
+            }
+
+            else st.push(val);
         }
     }
     
     void pop() {
-        Node* prevHead = head;
-        head = head->next;
-        delete prevHead;
-        if(!head) mini=INT_MAX;
-        else mini = head->data.second;
+        if(st.top() < mini) {
+            mini = 2LL*mini - st.top();
+        }
+        st.pop();
     }
     
     int top() {
-        return head->data.first;
+        if(st.top() < mini) return mini;
+        return st.top();
     }
     
     int getMin() {
-        return head->data.second;
+        return mini;
     }
 };
 
