@@ -1,24 +1,24 @@
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        
         int n1 = nums1.size();
         int n2 = nums2.size();
+        stack<int> st;
+        map<int, int> mp;
         vector<int> ans;
 
-        for(int i=0; i < n1; i++) {
-            auto it = find(nums2.begin(), nums2.end(), nums1[i]);
-            int idx = distance(nums2.begin(), it);
-            bool f = 0;
-            for(int j=idx+1; j < n2; j++) {
-                if(nums2[j] > nums1[i]) {
-                    ans.push_back(nums2[j]);
-                    f=1;
-                    break;
-                }
+        for(int i=n2-1; i >= 0; i--) {
+            
+            while(!st.empty() && st.top() < nums2[i]) {
+                st.pop();
             }
 
-            if(!f) ans.push_back(-1);
+            mp[nums2[i]] = (st.empty()) ? -1 : st.top();
+            st.push(nums2[i]);
+        } 
+
+        for(int i=0; i < n1; i++) {
+            ans.push_back(mp[nums1[i]]);
         }
 
         return ans;
