@@ -11,6 +11,7 @@ public:
                 k--;
             }
             st.push(ch);
+            if(st.size() == 1 && ch == '0') st.pop();
         }
 
         while(k > 0 && !st.empty()) {
@@ -25,9 +26,7 @@ public:
         }
 
         reverse(ans.begin(), ans.end());
-        int start=0;
-        while(start < ans.size() && ans[start] == '0') start++;
-        if(start == ans.size()) return "0";
-        return ans.substr(start);
+        if(ans.size() == 0) return "0";
+        return ans;
     }
 };
