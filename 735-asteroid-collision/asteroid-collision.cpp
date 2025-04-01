@@ -15,7 +15,7 @@ public:
                 }
 
                 if(!stk.empty() && stk.top() == abs(asteroids[i])) stk.pop();
-                else if(stk.empty() || stk.top() < 0 && asteroids[i] < 0) stk.push(asteroids[i]);
+                else if(stk.empty() || stk.top() < 0) stk.push(asteroids[i]);
             }
         }
 
