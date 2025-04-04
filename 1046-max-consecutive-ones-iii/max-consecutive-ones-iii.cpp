@@ -3,23 +3,20 @@ public:
     int longestOnes(vector<int>& nums, int k) {
 
         int l=0;
-        int r=0;
         int zeros = 0;
-        int cnt = 0;
-        int maxLen = 0;
+        int res = 0;
 
-        while(l <= r && r < nums.size()) {
+        for(int r=0; r < nums.size(); r++) {  // O(N)
             if(nums[r] == 0) zeros++;
-            if(zeros > k) {
-                while(nums[l] == 1) l++;
-                zeros--;
+            while(zeros > k) {       // O(N) thorughtout the program at worst case
+                if(nums[l] == 0) zeros--;
                 l++;
             }
-            
-            maxLen = max(maxLen, r-l+1);
-            r++;
+            res = max(res, r-l+1);
         }
 
-        return maxLen;
+        return res;
+
+        // TC --> O(2N) & SC --> O(1)
     }
 };
