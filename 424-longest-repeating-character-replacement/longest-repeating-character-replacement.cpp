@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // TC --> O(N)   &&   SC --> O(26)
     int characterReplacement(string s, int k) {
         int l=0;
         int r=0;
