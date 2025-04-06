@@ -16,7 +16,7 @@ public:
         }
         return res;
     }
-
+    // TC --> O(2N + 2N)  &  SC --> O(1)
     int numSubarraysWithSum(vector<int>& nums, int goal) {
         return helper(nums, goal) - helper(nums, goal-1);
     }
