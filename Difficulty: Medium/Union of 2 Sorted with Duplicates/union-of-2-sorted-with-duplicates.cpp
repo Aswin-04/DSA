@@ -5,6 +5,7 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution {
   public:
     // a,b : the arrays
@@ -14,42 +15,33 @@ class Solution {
         // return vector with correct order of elements
         int n1 = a.size();
         int n2 = b.size();
-        
-        int i=0;
-        int j=0;
-        
+        int i=0, j=0;
         vector<int> ans;
-        
         while(i < n1 && j < n2) {
             if(a[i] <= b[j]) {
-                if(ans.empty() || ans.back() < a[i]) {
-                    ans.push_back(a[i]);
-                } 
+                if(ans.empty() || a[i] > ans.back()) ans.push_back(a[i]);
                 i++;
             }
-            
             else {
-                if(ans.empty() || ans.back() < b[j]) {
-                    ans.push_back(b[j]);
-                }
+                if(ans.empty() || b[j] > ans.back()) ans.push_back(b[j]);
                 j++;
             }
-
         }
         
         while(i < n1) {
-            if(ans.back() < a[i]) ans.push_back(a[i]);
+            if(a[i] > ans.back()) ans.push_back(a[i]);
             i++;
         }
         
         while(j < n2) {
-            if(ans.back() < b[j]) ans.push_back(b[j]);
+            if(b[j] > ans.back()) ans.push_back(b[j]);
             j++;
         }
         
         return ans;
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
