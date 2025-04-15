@@ -15,24 +15,24 @@ public:
         vector<vector<int>> res;
         queue<TreeNode*> q;
         if(root) q.push(root);
-        int size = q.size();
         int f=0;
         while(!q.empty()) {
-            vector<int> level;
+            int size = q.size();
+            vector<int> row(size);
+
             for(int i=0; i < size; i++) {
                 TreeNode* cur = q.front();
+                q.pop();
+
+                int index = f ? size-i-1 : i;
+                row[index] = cur->val;
+
                 if(cur->left) q.push(cur->left);
                 if(cur->right) q.push(cur->right);
-                level.push_back(cur->val);
-                q.pop();
             }
-            size = q.size();
-            if(f) {
-                reverse(level.begin(), level.end());
-                f=0;
-            }
-            else f=1;
-            res.push_back(level);
+            
+            f = !f;
+            res.push_back(row);
         }
 
         return res;
