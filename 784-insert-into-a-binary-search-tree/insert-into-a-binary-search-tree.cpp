@@ -12,22 +12,27 @@
 class Solution {
 public:
     TreeNode* insertIntoBST(TreeNode* root, int val) {
-        // find the largest smallest element lesser than val
+
         TreeNode* newNode = new TreeNode(val);
         if(!root) return newNode;
 
         TreeNode* cur = root;
         TreeNode* prev = nullptr;
-        while(cur) {
-            prev = cur;
-            if(val > cur->val) cur = cur->right;
-            else cur = cur->left;
+        while(true) {
+            if(val < cur->val) {
+                if(cur->left == nullptr) {
+                    cur->left = newNode;
+                    return root;
+                }
+                else cur = cur->left; 
+            }
+            else {
+                if(cur->right == nullptr) {
+                    cur->right = newNode;
+                    return root;
+                }
+                else cur = cur->right;
+            }
         }
-
-        if(val < prev->val) prev->left = newNode;
-        else prev->right = newNode;
-
-        return root;
-
     }
 };
