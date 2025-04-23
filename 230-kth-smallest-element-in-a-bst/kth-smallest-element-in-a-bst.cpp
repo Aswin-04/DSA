@@ -12,7 +12,7 @@
 class Solution {
 public:
     void inOrder(TreeNode* root, int &cnt, int &ans, int k) {
-        if(!root) return;
+        if(!root || cnt >= k) return;
         inOrder(root->left, cnt, ans, k);
         if(++cnt == k) {
             ans = root->val;
