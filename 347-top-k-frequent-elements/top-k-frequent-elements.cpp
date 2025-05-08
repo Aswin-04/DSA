@@ -4,18 +4,20 @@ public:
         unordered_map<int, int> freq;
         for(int val: nums) freq[val]++;
 
-        map<int, vector<int>, greater<int>> freq_arr;
+        int size = nums.size()+1;
+        vector<vector<int>> bucket(size);
         for(auto p: freq) {
-            freq_arr[p.second].push_back(p.first);
+            bucket[p.second].push_back(p.first);
         }
-        
+
+        // for(int i=0; i < bucket.size(); i++)
+
+        int ctr = 0;
         vector<int> res;
-        int i=0;
-        for(auto p: freq_arr) {
-            for(int val: p.second) {
-                if(i >= k) break;
-                res.push_back(val);
-                i++;
+        for(int i=size-1; i >= 0; i--) {
+            for(int j=0; j < bucket[i].size(); j++, ctr++) {
+                if (ctr >= k) break;
+                res.push_back(bucket[i][j]);
             }
         }
 
