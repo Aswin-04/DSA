@@ -1,7 +1,9 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int, int> freq;
+        // SC --> O(N)
+        // TC --> O(N)
+        unordered_map<int, int> freq;     
         for(int val: nums) freq[val]++;
 
         int size = nums.size()+1;
@@ -9,8 +11,6 @@ public:
         for(auto p: freq) {
             bucket[p.second].push_back(p.first);
         }
-
-        // for(int i=0; i < bucket.size(); i++)
 
         int ctr = 0;
         vector<int> res;
