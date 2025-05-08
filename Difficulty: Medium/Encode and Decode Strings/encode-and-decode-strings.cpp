@@ -9,29 +9,29 @@ class Solution {
   public:
     string encode(vector<string>& s) {
         // code here
-        string encoded_str = "";
-        for(int i=0; i < s.size()-1; i++) {
-            encoded_str+=(s[i] + '\n');
+        string encoded_str="";
+        for(string str: s) {
+            encoded_str+=to_string(str.size()) + "#" + str;
         }
-        encoded_str+=s[s.size()-1];
         
         return encoded_str;
-        
     }
     
 
     vector<string> decode(string& s) {
-        
         // code here
-        stringstream ss(s);
-        vector<string> tokens;
-        string token;
-        
-        while(getline(ss, token, '\n')) {
-            tokens.push_back(token);
+        int i=0;
+        vector<string> decoded_str; 
+        while(i < s.size()) {
+            int j=i;
+            while(s[j] != '#') j++;
+            int length = stoi(s.substr(i, j-i));
+            i=j+1;
+            decoded_str.push_back(s.substr(i, length));
+            i+=length;
         }
         
-        return tokens;
+        return decoded_str;
     }
 };
 
