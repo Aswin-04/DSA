@@ -9,24 +9,24 @@ class Solution {
   public:
     int totalElements(vector<int> &arr) {
         // code here
-        unordered_map<int, int> mp;
-        int l=0;
-        int n=arr.size();
+        unordered_map<int, int> mpp;
+        int i=0;
+        int j=0;
         int maxLen = 0;
-        
-        for(int r=0; l <= r && r < n; r++) {
-            mp[arr[r]]++;
-            while(mp.size() > 2) {
-                mp[arr[l]]--;
-                if(mp[arr[l]] == 0) {
-                    mp.erase(arr[l]);
-                }
-                l++;
+        while(j < arr.size()) {
+            mpp[arr[j]]++;
+            
+            while(mpp.size() > 2) {
+                mpp[arr[i]]--;
+                if(mpp[arr[i]] == 0) mpp.erase(arr[i]);
+                i++;
             }
-            maxLen = max(maxLen, r-l+1);
-        }
-        
-        return maxLen;
+            
+            maxLen = max(maxLen, j-i+1);
+            j++;
+         }
+         
+         return maxLen;
     }
 };
 
