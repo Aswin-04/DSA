@@ -6,7 +6,7 @@ public:
         int ans = 0;
         for(int i=n-2; i >= 0; i--) {
             if(prices[i] > mx) mx = prices[i];
-            ans = max(ans, max(0, mx-prices[i]));
+            ans = max(ans, mx-prices[i]);
         }
 
         return ans;
