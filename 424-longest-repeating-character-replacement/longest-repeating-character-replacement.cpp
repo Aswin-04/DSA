@@ -1,27 +1,25 @@
 class Solution {
 public:
-    // TC --> O(N)   &&   SC --> O(26)
     int characterReplacement(string s, int k) {
-        int l=0;
-        int r=0;
+        vector<int> freq(26);
+        int res = 0;
         int n = s.size();
-        vector<int> freq(26, 0);
-        int maxFreq = 0;
-        int maxLen = 0;
+        int l=0;
+        int max_freq = 0;
 
-        while(r < n) {
+        for(int r=0; r < n; r++) {
             freq[s[r]-'A']++;
-            maxFreq = max(maxFreq, freq[s[r]-'A']);
+            max_freq = max(max_freq, freq[s[r]-'A']);
 
-            if(r-l-maxFreq+1 > k) {
+            int rem = r-l+1-max_freq;
+            if(rem > k) {
                 freq[s[l]-'A']--;
                 l++;
             }
 
-            if(r-l-maxFreq+1 <= k) maxLen = max(maxLen, r-l+1);
-            r++;
+            if(r-l+1-max_freq <= k) res = max(res, r-l+1);
         }
 
-        return maxLen;
+        return res;
     }
 };
