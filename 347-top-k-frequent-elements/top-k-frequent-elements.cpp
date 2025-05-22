@@ -7,20 +7,14 @@ public:
         }
 
         vector<pair<int, int>> freq_vec;
-        for(const auto &p: freq_map) {
-            freq_vec.push_back(p);
+        for (const auto& p : freq_map) {
+            freq_vec.push_back({p.second, p.first});
         }
-        sort(freq_vec.begin(), freq_vec.end(), [](const pair<int, int> mp1, const pair<int, int> mp2) {
-            return mp1.second >= mp2.second;
-        });
+        sort(freq_vec.rbegin(), freq_vec.rend());
 
         vector<int> ans;
-        int i = 0;
-        for (auto p : freq_vec) {
-            if (i >= k)
-                break;
-            ans.push_back(p.first);
-            i++;
+        for(int i=0; i < k; i++) {
+            ans.push_back(freq_vec[i].second);
         }
 
         return ans;
