@@ -1,8 +1,8 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        if(s.size() != t.size()) return false;
-        vector<int> freq(26);
+
+        vector<int> freq(26, 0);
 
         for(char ch: s) {
             freq[ch-'a']++;
@@ -12,12 +12,10 @@ public:
             freq[ch-'a']--;
         }
 
-        for(int i: freq) {
-            if(i != 0) return false;
+        for(int i=0; i < 26; i++) {
+            if(freq[i]) return false; 
         }
 
         return true;
     }
-
-    // TC --> O(N)   &&    SC --> O(26)
 };
