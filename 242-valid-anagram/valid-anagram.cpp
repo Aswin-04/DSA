@@ -3,14 +3,15 @@ public:
     bool isAnagram(string s, string t) {
         if(s.size() != t.size()) return false;
 
-        map<char, int> freq1, freq2;
+        int freq1[26] = {0};
+        int freq2[26] = {0};
         for(int i=0; i < s.size(); i++) {
-            freq1[s[i]]++;
-            freq2[t[i]]++;
+            freq1[s[i]-'a']++;
+            freq2[t[i]-'a']++;
         } 
 
         for(int i=0; i < s.size(); i++) {
-            if(freq1[s[i]] != freq2[s[i]]) return false;
+            if(freq1[s[i]-'a'] != freq2[s[i]-'a']) return false;
         }
 
         return true;
