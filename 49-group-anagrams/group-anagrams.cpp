@@ -1,21 +1,23 @@
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<vector<int>, vector<string>> mpp;
+        vector<vector<string>> ans;
 
-        map<vector<int>, vector<string>> anagramHash;
-        for (string s : strs) {
+        for(int i=0; i < strs.size(); i++) {
             vector<int> freq(26, 0);
-            for (char ch : s) {
-                freq[ch - 'a']++;
+            for(int j=0; j < strs[i].size(); j++) {
+                freq[strs[i][j]-'a']++;
             }
-            anagramHash[freq].push_back(s);
+            mpp[freq].push_back(strs[i]);
         }
 
-        vector<vector<string>> answer;
-        for (auto pr : anagramHash) {
-            answer.push_back(pr.second);
+        for(auto p: mpp) {
+            ans.push_back(p.second);
         }
 
-        return answer;
+        return ans;
+
+
     }
 };
