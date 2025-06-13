@@ -1,28 +1,32 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        map<int, vector<int>> freqHash;
-        map<int, int> freqArr;
-        vector<int> ans;
+        
+        // TC --> O(N)
+        // SC --> O(N)
+
+        int n = nums.size();
+        unordered_map<int, int> freq_hash;
+        vector<vector<int>> freq_arr(n+1);
+        vector<int> answer;
 
         for(int i=0; i < nums.size(); i++) {
-            freqArr[nums[i]]++;
+            freq_hash[nums[i]]++;
         }
 
-        for(auto pr: freqArr) {
-            freqHash[pr.second].push_back(pr.first);
+        for(auto it = freq_hash.begin(); it != freq_hash.end(); it++) {
+            freq_arr[it->second].push_back(it->first);
         }
 
-        int i=0;
-        for(auto itr = freqHash.rbegin(); itr != freqHash.rend(); itr++) {
-            for(int freq: itr->second) {
-                if(i >= k) break;
-                ans.push_back(freq);
-                i++;
+        int ctr=1;
+        for(int i=n; i >= 0; i--) {
+            for(int freq: freq_arr[i]) {
+                if(ctr > k) break;
+                answer.push_back(freq);
+                ctr++;
             }
         }
 
-        return ans;
-
+        return answer;
     }
 };
