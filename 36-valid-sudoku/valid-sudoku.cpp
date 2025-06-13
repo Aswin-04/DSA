@@ -1,23 +1,27 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        unordered_map<int, set<int>> rows;
-        unordered_map<int, set<int>> cols;
-        map<pair<int, int>, set<int>> sub_grids;
 
-        for(int i=0; i < board.size(); i++) {
-            for(int j=0; j < board[i].size(); j++) {
-                if(board[i][j] == '.') continue;
+        // TC --> O(size * size);
+        // SC --> O(size * size);
 
-                int num = board[i][j] - '0';
-                if(rows[i].count(num) || cols[j].count(num) || sub_grids[{i/3, j/3}].count(num)) return false;
-                rows[i].insert(num);
-                cols[j].insert(num);
-                sub_grids[{i/3, j/3}].insert(num);
+        const int size = 9;
+        vector<unordered_set<char>> rows(size);
+        vector<unordered_set<char>> cols(size);
+        map<pair<int,  int>, unordered_set<char>> sub_grids;
+
+        for(int i=0; i < size; i++) {
+            for(int j=0; j < size; j++) {
+                char val = board[i][j];
+                if(val == '.') continue;
+                pair<int, int> idx = {i/3, j/3};
+                if(rows[i].count(val) || cols[j].count(val) || sub_grids[idx].count(val)) return false;
+                rows[i].insert(val);
+                cols[j].insert(val);
+                sub_grids[idx].insert(val);
             }
         }
 
         return true;
-
     }
 };
