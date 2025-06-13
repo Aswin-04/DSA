@@ -2,20 +2,24 @@ class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
 
-        // TC --> O(n) && SC --> O(n)
-        unordered_set<int> st;
-        int max_len = 0;
-        for(int val: nums) st.insert(val);
-        for(int val: st) {
-            if(st.count(val-1)) continue;
-            int ctr = 0;
-            int temp = val;
-            while(st.count(temp)) {
-                temp++;
-                ctr++;
-            }
+        // TC --> O(N)
+        // SC --> O(N)
 
-            max_len = max(max_len, ctr);
+        unordered_set<int> hash_set;
+        for(int val: nums) {
+            hash_set.insert(val);
+        }
+
+        int max_len = 0;
+        for(int val: hash_set) {
+            if(hash_set.count(val-1)) continue;
+            int len = 0;
+            int crnt_val = val;
+            while(hash_set.count(crnt_val)) {
+                crnt_val++;
+                len++;
+            }
+            max_len = max(max_len, len);
         }
 
         return max_len;
