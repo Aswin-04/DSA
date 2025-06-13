@@ -1,36 +1,44 @@
 class Solution {
   public:
+  
+    int to_int(string s) {
+        int res = 0;
+        for(int i=0; i < s.size(); i++) {
+            res = res*10+(s[i]-'0');
+        }
+        return res;
+    }
+    
     string encode(vector<string>& s) {
         // code here
         string encoded_str = "";
-        for(int i=0; i < s.size(); i++) {
-            encoded_str+=(to_string(s[i].size()) + "#" + s[i]);
+        for(string str: s) {
+            encoded_str += to_string(str.size()) + "#" + str;
         }
         
         return encoded_str;
-        
     }
 
     vector<string> decode(string& s) {
         // code here
+        
         int i=0;
         int n = s.size();
-        vector<string> res;
+        vector<string> decoded_str;
         
         while(i < n) {
-            string cnt_str = "";
-            while(s[i] != '#') {
-                cnt_str+=s[i];
+            string len_str = "";
+            while(i < n && s[i] != '#') {
+                len_str+=s[i];
                 i++;
             }
             
             i++;
-            int char_count = stoi(cnt_str);
-            res.push_back(s.substr(i, char_count));
-            i+=char_count;
+            int len = to_int(len_str);
+            decoded_str.push_back(s.substr(i, len));
+            i+=len;
         }
         
-        return res;
-        
+        return decoded_str;
     }
 };
