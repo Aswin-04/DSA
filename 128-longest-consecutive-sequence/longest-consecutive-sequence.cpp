@@ -2,8 +2,9 @@ class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
 
-        // TC --> O(N)
+        // TC --> O(N) 
         // SC --> O(N)
+        // where N is the total no of unique elements in nums
 
         unordered_set<int> hash_set;
         for(int val: nums) {
