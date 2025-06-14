@@ -1,34 +1,33 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
+
+        unordered_map<int, int> count;
         sort(nums.begin(), nums.end());
-        if(nums.size() < 3 || nums[0] > 0) return {};
-        vector<vector<int>> ans;
+        int n = nums.size();
+        vector<vector<int>> answer;
+        for(int num: nums) {
+            count[num]++;
+        }
 
-        for(int i=0; i<nums.size(); i++) {
-            if(nums[i] > 0) break;
-            if(i > 0 && nums[i] == nums[i-1]) continue;
+        for(int i=0; i < n; i++) {
+            count[nums[i]]--;
+            if(i > 0 && nums[i-1] == nums[i]) continue;
 
-            int low = i+1, high = nums.size()-1;
-            int sum = 0;
-
-            while(low < high) {
-                sum = nums[i] + nums[low] + nums[high];
-                if(sum > 0) high--;
-                else if(sum < 0) low++;
-                else {
-                    ans.push_back({nums[i], nums[low], nums[high]});
-                    int last_low_occurence = nums[low] , last_high_occurence = nums[high];  
-                    while(low < high && nums[low] == last_low_occurence) {
-                        low++;
-                    }
-                    while(low < high && nums[high] == last_high_occurence) {
-                        high--;
-                    }
+            for(int j=i+1; j < n; j++) {
+                count[nums[j]]--;
+                if(j > i+1 && nums[j-1] == nums[j]) continue;
+                int target = -(nums[i]+nums[j]);
+                if(count[target] > 0) {
+                    answer.push_back({nums[i], nums[j], target});
                 }
             }
-        }      
 
-        return ans;
+            for(int j=i+1; j < n; j++) {
+                count[nums[j]]++;
+            }
+        }
+
+        return answer;
     }
 };
