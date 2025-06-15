@@ -6,24 +6,19 @@ public:
         // SC --> O(N)
 
         int n = height.size();
-        vector<int> maxLeft(n, 0);
         vector<int> maxRight(n, 0);
 
         int maxi = 0;
-        for(int i=0; i < n; i++) {
-            maxLeft[i] = maxi;
-            maxi = max(maxi, height[i]);
-        }
-
-        maxi = 0;
         for(int i=n-1; i >= 0; i--) {
             maxRight[i] = maxi;
             maxi = max(maxi, height[i]);
         }
 
         int ans = 0;
+        int maxLeft = 0;
         for(int i=0; i < n; i++) {
-            int waterTrapped = min(maxLeft[i], maxRight[i]) - height[i];
+            int waterTrapped = min(maxLeft, maxRight[i]) - height[i];
+            maxLeft = max(maxLeft, height[i]);
             ans+=max(waterTrapped, 0);
         }
 
