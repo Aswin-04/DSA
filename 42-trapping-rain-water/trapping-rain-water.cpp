@@ -1,31 +1,32 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
+
+        // TC --> O(N)
+        // SC --> O(N)
+
         int n = height.size();
-        vector<int> prefix(n, 0);
-        vector<int> suffix(n, 0);
+        vector<int> maxLeft(n, 0);
+        vector<int> maxRight(n, 0);
 
-        int mx = 0;
+        int maxi = 0;
         for(int i=0; i < n; i++) {
-            if(mx > height[i]) {
-                prefix[i] = mx;
-            }
-            mx = max(mx, height[i]);
+            maxLeft[i] = maxi;
+            maxi = max(maxi, height[i]);
         }
-        mx = 0;
+
+        maxi = 0;
         for(int i=n-1; i >= 0; i--) {
-            if(mx > height[i]) {
-                suffix[i] = mx;
-            }
-            mx = max(mx, height[i]);
+            maxRight[i] = maxi;
+            maxi = max(maxi, height[i]);
         }
 
-        int res = 0;
+        int ans = 0;
         for(int i=0; i < n; i++) {
-            int trapped = min(prefix[i], suffix[i]) - height[i];
-            res+=max(0, trapped);
+            int waterTrapped = min(maxLeft[i], maxRight[i]) - height[i];
+            ans+=max(waterTrapped, 0);
         }
 
-        return res;
+        return ans;
     }
 };
