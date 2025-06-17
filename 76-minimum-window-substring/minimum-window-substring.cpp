@@ -17,33 +17,35 @@ public:
         while(r < n) {
             window[s[r]]++;
 
-            bool valid = true;
-            for(auto pr: freqT) {
-                if(window.find(pr.first) == window.end() ||
-                    window[pr.first] < pr.second
-                ) {
-                    valid = false;
-                    break;
-                }
-            }
-
-            if(valid) {
-                while(l <= r) {
-                    if(freqT.find(s[l]) == freqT.end() || 
-                        window[s[l]] > freqT[s[l]]
-                        ) {
-                            window[s[l]]--;
-                            l++;
-                    } 
-                    else break;
+            if(freqT.find(s[r]) != freqT.end()) {
+                bool valid = true;
+                for(auto pr: freqT) {
+                    if(window.find(pr.first) == window.end() ||
+                        window[pr.first] < pr.second
+                    ) {
+                        valid = false;
+                        break;
+                    }
                 }
 
-                int crnt_len = idx.second - idx.first +1;
-                int new_len = r-l+1;
+                if(valid) {
+                    while(l <= r) {
+                        if(freqT.find(s[l]) == freqT.end() || 
+                            window[s[l]] > freqT[s[l]]
+                            ) {
+                                window[s[l]]--;
+                                l++;
+                        } 
+                        else break;
+                    }
 
-                if(new_len < crnt_len) {
-                    idx.first = l;
-                    idx.second = r;
+                    int crnt_len = idx.second - idx.first +1;
+                    int new_len = r-l+1;
+
+                    if(new_len < crnt_len) {
+                        idx.first = l;
+                        idx.second = r;
+                    }
                 }
             }
             r++;
