@@ -9,27 +9,20 @@ public:
     
     void push(int val) {
         stk.push(val);
-        if(min_stk.empty() || val <= min_stk.top()) {
-            min_stk.push(val);
-        }
+        min_stk.push(min(val, !min_stk.empty() ? min_stk.top(): val));
     }
     
     void pop() {
-        if(stk.empty()) return;
-        if(stk.top() == min_stk.top()) {
-            min_stk.pop();
-        }
         stk.pop();
+        min_stk.pop();
     }
     
     int top() {
-        if(!stk.empty()) return stk.top();
-        return -1;
+        return stk.top();
     }
     
     int getMin() {
-        if(!min_stk.empty()) return min_stk.top();
-        return -1;
+        return min_stk.top();
     }
 };
 
