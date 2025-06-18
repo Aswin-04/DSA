@@ -15,34 +15,30 @@ public:
         int r=0;
         int n = s.size();
         pair<int, int> idx = {-1, n};
-        int need=t.size();
+        int need=freqT.size();
         int have=0;
 
         while(r < n) {
             window[s[r]]++;
 
             if(freqT.count(s[r]) &&
-               window[s[r]] <= freqT[s[r]]) {
+               window[s[r]] == freqT[s[r]]) {
                 have++;
             }
                
-            if(have == need) {
-                while(l < r) {
-                    if(!freqT.count(s[l]) || window[s[l]] > freqT[s[l]]) {
-                        window[s[l]]--;
-                        l++;
-                    } 
-                    else break;
-                }
+            while(have == need) {
 
                 if(r-l+1 < idx.second-idx.first+1) {
                     idx.first = l;
                     idx.second = r;
                 }
 
+                if(freqT.count(s[l]) && window[s[l]] == freqT[s[l]]) {
+                    have--;
+                }
+
                 window[s[l]]--;
                 l++;
-                have--;
             }
             
             r++;
