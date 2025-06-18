@@ -3,7 +3,7 @@ public:
     string minWindow(string s, string t) {
 
         // TC --> O(n)
-        // SC --> O(n1+n1)
+        // SC --> O(n1+n2)
         if(t.size() > s.size()) return "";
 
         unordered_map<char, int> window, freqT;
