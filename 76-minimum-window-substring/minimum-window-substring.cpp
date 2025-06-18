@@ -2,46 +2,47 @@ class Solution {
 public:
     string minWindow(string s, string t) {
 
+        // TC --> O(n)
+        // SC --> O(n1+n1)
         if(t.size() > s.size()) return "";
 
         unordered_map<char, int> window, freqT;
-        int valid = 0;
         for(char ch: t) {
             freqT[ch]++;
-            valid++;
         }
 
         int l=0;
         int r=0;
         int n = s.size();
         pair<int, int> idx = {-1, n};
-        int need=0;
+        int need=t.size();
+        int have=0;
+
         while(r < n) {
             window[s[r]]++;
 
-            if(window.find(s[r]) != window.end() &&
+            if(freqT.count(s[r]) &&
                window[s[r]] <= freqT[s[r]]) {
-                need++;
+                have++;
             }
                
-            if(need == valid) {
-                while(l <= r) {
-                    if(freqT.find(s[l]) == freqT.end() || 
-                        window[s[l]] > freqT[s[l]]
-                        ) {
-                            window[s[l]]--;
-                            l++;
+            if(have == need) {
+                while(l < r) {
+                    if(!freqT.count(s[l]) || window[s[l]] > freqT[s[l]]) {
+                        window[s[l]]--;
+                        l++;
                     } 
                     else break;
                 }
 
-                int crnt_len = idx.second - idx.first +1;
-                int new_len = r-l+1;
-
-                if(new_len < crnt_len) {
+                if(r-l+1 < idx.second-idx.first+1) {
                     idx.first = l;
                     idx.second = r;
                 }
+
+                window[s[l]]--;
+                l++;
+                have--;
             }
             
             r++;
