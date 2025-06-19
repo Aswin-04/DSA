@@ -48,6 +48,6 @@ public:
             else nums_stk.push(my_stoi(s));
         }
 
-        return nums_stk.empty() ? ans : nums_stk.top();
+        return nums_stk.top();
     }
 };
