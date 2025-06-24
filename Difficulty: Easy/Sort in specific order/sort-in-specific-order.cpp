@@ -3,20 +3,22 @@ class Solution {
     void sortIt(vector<long long>& arr) {
         // code here.
         int n = arr.size();
-        int i=0;
-        int j = n-1;
+        int l = 0;
+        int r = arr.size()-1;
         
-        while(i <= j) {
-            if(arr[i]&1) i++;
-            else if(arr[j]%2 == 0) j--;
+        while(l < r) {
+            if(arr[l]&1) l++;
+            else if(arr[r]%2 == 0) r--;
             else {
-                swap(arr[i], arr[j]);
-                i++;
-                j--;
+                swap(arr[l], arr[r]);
+                l++;
+                r--;
             }
         }
         
-        sort(arr.begin(), arr.begin()+i, greater<long long>());
-        sort(arr.begin()+i, arr.end());
+        int partition = (l < n && arr[l]%2 == 1) ? l+1 : l; 
+        
+        if(r != -1) sort(arr.begin(), arr.begin()+partition, greater<long long>());
+        if(l != n) sort(arr.begin()+partition, arr.end());
     }
 };
