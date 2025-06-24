@@ -11,32 +11,43 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        vector<ListNode*> listArr;
-        ListNode* cur = head;
+        // find the middle node of the linkedlist
+        while(fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // reverse the right half of the linkedlist
+        ListNode* cur = slow;
+        ListNode* prev = nullptr;
         while(cur) {
-            listArr.push_back(cur);
-            cur = cur->next;
+            ListNode* next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
         }
 
-        int i=1;
-        int j=listArr.size()-1;
+        // merge both halves of linked list
+        ListNode* first = head;
+        ListNode* second = prev;
+        ListNode* temp1;
+        ListNode* temp2;
 
-        cur = head;
-        cur->next = listArr[j];
-        cur = cur->next;
-        j--;
-
-        while(i <= j) {
-            cur->next = listArr[i];
-            cur = cur->next;
-            i++;
-            if(i > j) break;
-            cur->next = listArr[j];
-            cur = cur->next; 
-            j--;
+        while(second->next != nullptr) {
+            temp1 = first->next;
+            temp2 = second->next;
+            first->next = second;
+            second->next = temp1;
+            first = temp1;
+            second = temp2;
         }
 
-        cur->next = nullptr;
+        if(temp2) {
+            second->next = temp2;
+            second->next->next = nullptr;
+        }
     }
 };
