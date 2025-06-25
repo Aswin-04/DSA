@@ -10,52 +10,55 @@
  */
 class Solution {
 public:
-
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* ptr1 = l1;
+        ListNode* ptr2 = l2;
+        ListNode* dummy = new ListNode();
+        ListNode* l3 = dummy;
 
-        ListNode* ll1 = l1;
-        ListNode* ll2 = l2;
-        ListNode* sum = new ListNode(-1);
-        ListNode* temp = sum;
         int carry = 0;
+        while(ptr1 && ptr2) {
+            int sum = ptr1->val + ptr2->val + carry;
+            int val = sum%10;
+            carry = sum/10;
 
-        while(ll1 && ll2) {
-            
-            int val = (ll1->val + ll2->val + carry);
-            ListNode* newNode = new ListNode(val%10);
-            carry = val/10;
+            ListNode* newNode = new ListNode(val);
+            l3->next = newNode;
 
-            ll1 = ll1->next;
-            ll2 = ll2->next;
-            temp->next = newNode;
-            temp = temp->next;
+            l3 = l3->next;
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
         }
 
-        while(ll1) {
-            int val = (ll1->val + carry);
-            ListNode* newNode = new ListNode(val%10);
-            carry = val/10;
+        while(ptr1) {
+            int sum = ptr1->val + carry;
+            int val = sum%10;
+            carry = sum/10;
 
-            ll1 = ll1->next;
-            temp->next = newNode;
-            temp = temp->next;
+            ListNode* newNode = new ListNode(val);
+            l3->next = newNode;
+
+            l3 = l3->next;
+            ptr1 = ptr1->next;
         }
 
-        while(ll2) {
-            int val = (ll2->val + carry);
-            ListNode* newNode = new ListNode(val%10);
-            carry = val/10;
+        while(ptr2) {
+            int sum = ptr2->val + carry;
+            int val = sum%10;
+            carry = sum/10;
 
-            ll2 = ll2->next;
-            temp->next = newNode;
-            temp = temp->next;
+            ListNode* newNode = new ListNode(val);
+            l3->next = newNode;
+
+            l3 = l3->next;
+            ptr2 = ptr2->next;
         }
 
         if(carry) {
             ListNode* newNode = new ListNode(carry);
-            temp->next = newNode;
+            l3->next = newNode;
         }
 
-        return sum->next;
+        return dummy->next;
     }
 };
