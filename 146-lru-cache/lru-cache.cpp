@@ -26,33 +26,30 @@ public:
         tail->prev = head;
     }
 
-    void update(Node* recentNode) {
-        recentNode->prev->next = recentNode->next;
-        recentNode->next->prev = recentNode->prev;
-        tail->prev->next = recentNode;
-        recentNode->prev = tail->prev;
-        recentNode->next = tail;
-        tail->prev = recentNode;
+    void moveToTail(Node* node) {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+        add(node);
     }
 
-    void remove(Node* nodeToDelete) {
-        head->next = nodeToDelete->next;
-        nodeToDelete->next->prev = head;
-        cache.erase(nodeToDelete->key);
-        delete nodeToDelete;
+    void remove(Node* node) {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+        cache.erase(node->key);
+        delete node;
     }
 
-    void add(Node* newNode) {
-        tail->prev->next = newNode;
-        newNode->prev = tail->prev;
-        tail->prev = newNode;
-        newNode->next = tail;
+    void add(Node* node) {
+        tail->prev->next = node;
+        node->prev = tail->prev;
+        tail->prev = node;
+        node->next = tail;
     }
     
     int get(int key) {
         if(cache.count(key) == 0) return -1;
         Node* recentNode = cache[key];
-        update(recentNode);
+        moveToTail(recentNode);
         return recentNode->val;
     }
     
@@ -60,7 +57,7 @@ public:
         if(cache.count(key)) {
             Node* recentNode = cache[key];
             recentNode->val = value;
-            update(recentNode);
+            moveToTail(recentNode);
             return;
         }
 
