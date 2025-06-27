@@ -33,11 +33,20 @@ public:
         delete dummy;
         return res;
     }
+
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode* prev = nullptr;
-        for(int i=0; i < lists.size(); i++) {
-            prev = mergeTwoLists(prev, lists[i]);
+        // TC --> O(n logk)
+        if(lists.size() == 0) return nullptr;
+
+        while(lists.size() > 1) {
+            vector<ListNode*> mergedLists;
+            for(int i=0; i < lists.size(); i+=2) {
+                ListNode* l1 = lists[i];
+                ListNode* l2 = (i+1) < lists.size() ? lists[i+1] : nullptr;
+                mergedLists.push_back(mergeTwoLists(l1, l2));
+            } 
+            lists = mergedLists;
         }
-        return prev;
+        return lists[0];
     }
 };
