@@ -10,33 +10,34 @@
  */
 class Solution {
 public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        map<int, int> freqHash;
-        int n = lists.size();
-        if(n == 0) return nullptr;
-
-        for(int i=0; i < n; i++) {
-            ListNode* curNode = lists[i];
-            while(curNode != nullptr) {
-                freqHash[curNode->val]++;
-                curNode = curNode->next;
-            }
-        }
-
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         ListNode* dummy = new ListNode();
-        ListNode* curNode = dummy;
-        for(auto it=freqHash.begin(); it != freqHash.end(); it++) {
-            int val = it->first;
-            int freq = it->second;
-            for(int i=0; i < freq; i++) {
-                ListNode* newNode = new ListNode(val);
-                curNode->next = newNode;
-                curNode = curNode->next;
-            }   
+        ListNode* cur = dummy;
+
+        while(l1 && l2) {
+            if(l1->val <= l2->val) {
+                cur->next = l1;
+                l1 = l1->next;
+            }
+            else {
+                cur->next = l2;
+                l2 = l2->next;
+            }
+            cur = cur->next;
         }
 
-        ListNode* resNode = dummy->next;
+        if(l1) cur->next = l1;
+        if(l2) cur->next = l2;
+        
+        ListNode* res = dummy->next;
         delete dummy;
-        return resNode;
+        return res;
+    }
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode* prev = nullptr;
+        for(int i=0; i < lists.size(); i++) {
+            prev = mergeTwoLists(prev, lists[i]);
+        }
+        return prev;
     }
 };
