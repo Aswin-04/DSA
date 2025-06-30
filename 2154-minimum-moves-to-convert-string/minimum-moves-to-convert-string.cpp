@@ -5,25 +5,14 @@ public:
         int ctr = 0;
         int i=0;
 
-        while(i+2 < n) {
+        while(i < n) {
             if(s[i] == 'O') i++;
             else {
-                bool hasX = false;
-                if(s[i] == 'X' || s[i+1] == 'X' || s[i+2] == 'X') {
-                    hasX = true;
-                }
-                if(hasX) ctr++;
+                ctr++;
                 i+=3;
             }
         }
-
-        bool hasX = false;
-        while(i < n) {
-            if(s[i] == 'X') hasX = true;
-            i++;
-        }
-
-        if(hasX) ctr++;
+        
         return ctr;
 
     }
