@@ -10,10 +10,11 @@
  */
 class Solution {
 public:
-    ListNode * reverseNodes(ListNode* prevNode, ListNode* curNode, ListNode*& head, int k) {
+    ListNode * reverseNodes(ListNode* prevGroupTail, ListNode* head, int k) {
         int ctr = 0;
-        ListNode* cur = curNode;
-        ListNode* prev = nullptr;
+        ListNode* prev = prevGroupTail;
+        ListNode* cur = head;
+
         while(ctr < k) {
             ListNode* next = cur->next;
             cur->next = prev;
@@ -21,12 +22,10 @@ public:
             cur = next;
             ctr++;
         }
-        curNode->next = cur;
-        if(prevNode) prevNode->next = prev;
-        if(head == nullptr) {
-            head = prev;
-        }
-        return curNode;
+        head->next = cur;
+        prevGroupTail->next = prev;
+
+        return head;
     }
 
     int getListLen(ListNode* head) {
@@ -43,16 +42,17 @@ public:
     }
     ListNode* reverseKGroup(ListNode* head, int k) {
         int n = getListLen(head);
-        ListNode* newHead = nullptr;
+        ListNode* dummy = new ListNode();
+        dummy->next = head;
+        ListNode* prevGroupTail = dummy;
+        ListNode* curr = head;
 
-        ListNode* prev = nullptr;
-        ListNode* cur = head;
         while(n >= k) {
-            prev = reverseNodes(prev, cur, newHead, k);
-            cur = cur->next;
+            prevGroupTail = reverseNodes(prevGroupTail, curr, k);
+            curr = curr->next;
             n-=k;
         }
 
-        return newHead;
+        return dummy->next;
     }
 };
