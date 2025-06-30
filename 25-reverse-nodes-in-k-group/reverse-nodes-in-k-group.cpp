@@ -10,49 +10,38 @@
  */
 class Solution {
 public:
-    ListNode * reverseNodes(ListNode* prevGroupTail, ListNode* head, int k) {
-        int ctr = 0;
-        ListNode* prev = prevGroupTail;
-        ListNode* cur = head;
-
-        while(ctr < k) {
-            ListNode* next = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur = next;
-            ctr++;
-        }
-        head->next = cur;
-        prevGroupTail->next = prev;
-
-        return head;
-    }
-
-    int getListLen(ListNode* head) {
-        ListNode* fast = head;
-        int ctr = 0;
-
-        while(fast && fast->next) {
-            fast = fast->next->next;
-            ctr+=2;
-        }
-
-        if(fast) ctr++;
-        return ctr;
-    }
     ListNode* reverseKGroup(ListNode* head, int k) {
-        int n = getListLen(head);
-        ListNode* dummy = new ListNode();
-        dummy->next = head;
-        ListNode* prevGroupTail = dummy;
-        ListNode* curr = head;
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* groupPrev = dummy;
 
-        while(n >= k) {
-            prevGroupTail = reverseNodes(prevGroupTail, curr, k);
-            curr = curr->next;
-            n-=k;
+        while(true) {
+            ListNode* kth = getKth(groupPrev, k);
+            if(!kth) break;
+
+            ListNode* groupNext = kth->next;
+            ListNode* prev = kth->next;
+            ListNode* curr = groupPrev->next;
+
+            while(curr != groupNext) {
+                ListNode* next = curr->next;
+                curr->next = prev;
+                prev = curr;
+                curr = next;
+            }
+
+            ListNode* tmp = groupPrev->next;
+            groupPrev->next = kth;
+            groupPrev = tmp;
         }
 
         return dummy->next;
+    }
+
+private:
+    ListNode* getKth(ListNode* curr, int k) {
+        while(curr && k--) {
+            curr = curr->next;
+        }
+        return curr;
     }
 };
