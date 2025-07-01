@@ -33,9 +33,7 @@ public:
                         res.push_back(tmp->val);
                     }
                 }
-                else {
-                    curr = tmp;
-                }
+                else curr = tmp;
             }
         }
         return res;
