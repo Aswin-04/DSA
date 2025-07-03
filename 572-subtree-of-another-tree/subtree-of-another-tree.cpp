@@ -21,6 +21,8 @@ public:
         if(root == nullptr) return false;
         bool left = isSubtree(root->left, subRoot);
         bool right = isSubtree(root->right, subRoot);
-        return isSameTree(root, subRoot) || left || right;
+        bool curr = false;
+        if(root->val == subRoot->val) curr = isSameTree(root, subRoot);
+        return curr || left || right;
     }
 };
