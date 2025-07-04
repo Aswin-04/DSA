@@ -17,15 +17,14 @@ public:
         queue<TreeNode*> queue;
         queue.push(root);
         while(!queue.empty()) {
-            TreeNode* node;
+            res.push_back(queue.back()->val);
             int size = queue.size();
             for(int i=0; i < size; i++) {
-                node = queue.front();
+                TreeNode* node = queue.front();
                 queue.pop();
                 if(node->left) queue.push(node->left);
                 if(node->right) queue.push(node->right);
             }
-            res.push_back(node->val);
         }
 
         return res;
