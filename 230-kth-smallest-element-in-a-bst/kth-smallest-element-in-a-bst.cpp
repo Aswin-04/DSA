@@ -11,19 +11,25 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* root, int& ans, int& ctr, int k) {
-        if(root == nullptr) return;
-        dfs(root->left, ans, ctr, k);
-        if(++ctr == k) {
-            ans = root->val;
-            return;
-        }
-        if(ctr < k) dfs(root->right, ans, ctr, k);
-    }
     int kthSmallest(TreeNode* root, int k) {
-        int ans;
         int ctr = 0;
-        dfs(root, ans, ctr, k);
-        return ans;
+        stack<TreeNode*> stk;
+        TreeNode* curr = root;
+        
+        while(!stk.empty() || curr) {
+            if(curr != nullptr) {
+                stk.push(curr);
+                curr = curr->left;
+            }
+
+            else {
+                TreeNode* node = stk.top();
+                stk.pop();
+                if(++ctr == k) return node->val;
+                curr = node->right;
+            }
+        }
+
+        return -1;
     }
 };
