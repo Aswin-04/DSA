@@ -19,7 +19,7 @@ public:
                     int inStart, 
                     int inEnd) {
         
-        if(preStart > preEnd || inStart > inEnd) return nullptr;
+        if(preStart > preEnd && inStart > inEnd) return nullptr;
         TreeNode* root = new TreeNode(preorder[preStart]);
         int rootIn = hashIn[root->val];
         int size = rootIn-inStart;
