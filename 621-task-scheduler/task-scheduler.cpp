@@ -15,28 +15,19 @@ public:
         while(!maxHeap.empty() || !queue.empty()) {
 
             if(maxHeap.empty()) {
-                pair<int, int> pr = queue.front(); queue.pop();
-                int taskCnt = pr.first;
-                int closingTime = pr.second;
-                time += closingTime - time;
-                maxHeap.push(taskCnt);
-                continue;
-            }
-
-            if(!queue.empty()) {
-                pair<int, int> pr = queue.front();
-                int taskCnt = pr.first;
-                int closingTime = pr.second;
-                if(time == closingTime) {
-                    queue.pop();
-                    maxHeap.push(taskCnt);
-                    continue;
+                time = queue.front().second;
+            } else {
+                int cnt = maxHeap.top() -1; maxHeap.pop();
+                time++;
+                if(cnt > 0) {
+                    queue.push({cnt, n+time});
                 }
             }
 
-            int currentTaskCnt = maxHeap.top(); maxHeap.pop();
-            time++;
-            if(--currentTaskCnt > 0) queue.push({currentTaskCnt, n+time});
+            if(!queue.empty() && queue.front().second == time) {
+                maxHeap.push(queue.front().first);
+                queue.pop();
+            }
         }
 
         return time;
