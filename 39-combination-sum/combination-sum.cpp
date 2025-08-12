@@ -3,26 +3,28 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<int> comb;
         vector<vector<int>> res;
-        helper(0, target, comb, candidates, res);
+        sort(candidates.begin(), candidates.end());
+        makeCombination(0, target, comb, candidates, res);
         return res;
     }
 
 private:
-    void helper(int idx, int target, vector<int>& comb, vector<int>& candidates, vector<vector<int>>& res) {
-
-        if(idx >= candidates.size()) return;
+    void makeCombination(int idx, int target, vector<int>& comb, vector<int>& candidates, vector<vector<int>>& res) {
 
         if(target == 0) {
             res.push_back(comb);
             return;
         }
 
-        if(candidates[idx] <= target) {
-            comb.push_back(candidates[idx]);
-            helper(idx, target-candidates[idx], comb, candidates, res);
+        for(int i=idx; i < candidates.size(); i++) {
+            if(candidates[i] > target) {
+                for(auto it: comb) cout << it << " ";
+                cout << endl;
+                return;
+            }
+            comb.push_back(candidates[i]);
+            makeCombination(i, target-candidates[i], comb, candidates, res);
             comb.pop_back();
         }
-
-        helper(idx+1, target, comb, candidates, res);
     }
 };
