@@ -4,23 +4,22 @@ public:
         vector<int> comb;
         vector<vector<int>> res;
         sort(candidates.begin(), candidates.end());
-        helper(0, target, candidates, comb, res);
+        makeCombination(0, target, comb, candidates, res);
         return res;
     }
 
 private:
-    void helper(int idx, int target, vector<int>& candidates, vector<int>& comb, vector<vector<int>>& res) {
+    void makeCombination(int idx, int target, vector<int>& comb, vector<int>& candidates, vector<vector<int>>& res) {
         
         if(target == 0) {
             res.push_back(comb);
             return;
-        }
-
+        } 
         for(int i=idx; i < candidates.size(); i++) {
-            if(i > idx && candidates[i] == candidates[i-1]) continue;
-            if(candidates[i] > target) return;
+            if(i != idx && candidates[i-1] == candidates[i]) continue;
+            if(target-candidates[i] < 0) return;
             comb.push_back(candidates[i]);
-            helper(i+1, target-candidates[i], candidates, comb, res);
+            makeCombination(i+1, target-candidates[i], comb, candidates, res);
             comb.pop_back();
         }
     }
