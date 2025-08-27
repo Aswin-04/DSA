@@ -3,55 +3,32 @@ public:
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> res;
         vector<string> board(n, string(n, '.'));
-        solve(0, n, board, res);
+        vector<int> leftRow(n, 0);
+        vector<int> lowerDiagonal(n+n-1, 0);
+        vector<int> upperDiagonal(n+n-1, 0);
+        solve(0, n, leftRow, lowerDiagonal, upperDiagonal, board, res);
         return res;
     }
 private: 
-    void solve(int col, int n, vector<string>& board, vector<vector<string>>& res) {
+    void solve(int col, int n, vector<int>& leftRow, vector<int>& lowerDiagonal, vector<int>& upperDiagonal, vector<string>& board, vector<vector<string>>& res) {
         if(col == n) {
             res.push_back(board);
             return;
         }
 
         for(int row=0; row < n; row++) {
-            if(isValid(row, col, n, board)) {
+            if(leftRow[row] == 0 && lowerDiagonal[row+col] == 0 && upperDiagonal[n-1+col-row] == 0) {
                 board[row][col] = 'Q';
-                solve(col+1, n, board, res);
+                leftRow[row] = 1;
+                lowerDiagonal[row+col] = 1;
+                upperDiagonal[n-1+col-row] = 1;
+                solve(col+1, n, leftRow, lowerDiagonal, upperDiagonal, board, res);
+                leftRow[row] = 0;
+                lowerDiagonal[row+col] = 0;
+                upperDiagonal[n-1+col-row] = 0;
                 board[row][col] = '.';
             }
         }
     }
 
-    bool isValid(int row, int col, int n, vector<string>& board) {
-
-        // col check;
-        for(int i=0; i < col; i++) {
-            if(board[row][i] == 'Q') return false;
-        }
-
-        // lower diagonal check
-        int tempRow = row;
-        int tempCol = col;
-        row++;
-        col--;
-
-        while(row < n && col >= 0) {
-            if(board[row][col] == 'Q') return false;
-            row++;
-            col--;
-        }
-
-        row = tempRow;
-        col = tempCol;
-        row--;
-        col--;
-
-        while(row >= 0 && col >= 0) {
-            if(board[row][col] == 'Q') return false;
-            row--;
-            col--;
-        }
-
-        return true;
-    }
 };
