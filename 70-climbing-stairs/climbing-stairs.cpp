@@ -6,9 +6,6 @@ public:
     }
 private:
     int recc(int level, vector<int>& dp) {
-        
-        // pruning
-        if(level < 0) return 0;
 
         // basecase
         if(level == 0 || level == 1) return 1;
