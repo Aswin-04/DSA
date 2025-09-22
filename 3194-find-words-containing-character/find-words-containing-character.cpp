@@ -1,16 +1,12 @@
 class Solution {
 public:
     vector<int> findWordsContaining(vector<string>& words, char x) {
-        unordered_set<int> s;
+        vector<int> ans;
         for(int i=0; i<words.size(); i++) {
-            for(int j=0; j<words[i].size(); j++) {
-                if(words[i][j]==x) {
-                    s.insert(i);
-                }
-                else continue;
+            if(count(words[i].begin(), words[i].end(), x)) {
+                ans.push_back(i);
             }
         }
-        vector<int> ans(s.begin(), s.end());
         return ans;
     }
 };
