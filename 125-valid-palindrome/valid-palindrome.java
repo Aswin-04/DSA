@@ -1,9 +1,11 @@
 class Solution {
 
-    private boolean checkPalindrome(StringBuilder s, int i, int n) {
-        if(i >= n/2) return true;
-        if(s.charAt(i) != s.charAt(n-i-1)) return false;
-        return checkPalindrome(s, i+1, n);
+    private boolean checkPalindrome(StringBuilder s, int i) {
+
+        int j = s.length()-i-1;
+        if(i >= j) return true;
+        if(s.charAt(i) != s.charAt(j)) return false;
+        return checkPalindrome(s, i+1);
     }
     public boolean isPalindrome(String s) {
         StringBuilder sb = new StringBuilder();
@@ -12,6 +14,6 @@ class Solution {
                 sb.append(Character.toLowerCase(s.charAt(i)));
             }
         }
-        return checkPalindrome(sb, 0, sb.length());
+        return checkPalindrome(sb, 0);
     }
 }
