@@ -1,18 +1,18 @@
 class Solution {
-    private static int reverseNum(int x) {
-
-        int revNum = 0;
-        while(x != 0) {
-            int lastDigit = x % 10;
-            revNum = revNum * 10 + lastDigit;
-            x/=10;
-        }
-
-        return revNum;
+    public boolean isPalindrome(int x) {
+        
+        if(x < 0) return false;
+        return x == reverseNumber(x);
     }
 
-    public boolean isPalindrome(int x) {
-        if(x < 0) return false;
-        return reverseNum(x) == x;
+    private int reverseNumber(int num) {
+        int res = 0;
+
+        while(num != 0) {
+            res = (res*10) + (num%10);
+            num/=10;
+        }
+
+        return res;
     }
 }
