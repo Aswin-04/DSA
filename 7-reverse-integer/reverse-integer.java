@@ -5,7 +5,6 @@ class Solution {
 
         while(num != 0) {
             int lastDigit = num%10;
-            System.out.println(lastDigit);
             if(res < Integer.MIN_VALUE/10 || res > Integer.MAX_VALUE/10) {
                 return 0;
             }
