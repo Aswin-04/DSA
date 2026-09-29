@@ -4,15 +4,11 @@ class Solution {
         int i = 0;
         
         while(ptr < nums.length) {
-            if(nums[i] == nums[ptr]) ptr++;
-            else {
-                int temp = nums[i+1];
+            if(nums[i] != nums[ptr]) {
                 nums[i+1] = nums[ptr];
-                nums[ptr] = temp;
                 i++;
-                ptr++;
-            }
-
+            } 
+            ptr++;
         }
 
         return i+1;
