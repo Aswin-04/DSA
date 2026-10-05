@@ -12,16 +12,22 @@ class Solution {
         }
 
         for(int i=0; i < n; i++) {
-            reverse(matrix, i, n);
+            reverseRow(matrix[i]);
         }
     }
 
-    private void reverse(int[][] matrix, int row, int n) {
+    private void reverseRow(int[] row) {
 
-        for(int i=0; i < n/2; i++) {
-            int tmp = matrix[row][i];
-            matrix[row][i] = matrix[row][n-i-1];
-            matrix[row][n-i-1] = tmp;
+        int left = 0;
+        int right = row.length-1;
+
+        while(left < right) {
+            int temp = row[left];
+            row[left] = row[right];
+            row[right] = temp;
+
+            left++;
+            right--;
         }
     } 
 }
