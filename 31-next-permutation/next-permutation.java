@@ -3,28 +3,35 @@ class Solution {
         int bp = -1;
         int n = nums.length;
 
-        for(int i=n-2; i >= 0; i--) {
-            if(nums[i] < nums[i+1]) {
+        for (int i = n - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1]) {
                 bp = i;
                 break;
             }
         }
 
-        if(bp == -1) {
+        if (bp == -1) {
             reverse(nums, 0);
             return;
         }
 
-        int sm = bp+1;
+        int low = bp + 1;
+        int high = n - 1;
+        int sm = bp + 1;
 
-        for(int i=bp+1; i < n; i++) {
-            if(nums[i] > nums[bp] && nums[i] <= nums[sm]) {
-                sm = i;
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (nums[mid] > nums[bp]) {
+                sm = mid;
+                low = mid + 1;
             }
+
+            else
+                high = mid - 1;
         }
 
         swap(nums, bp, sm);
-        reverse(nums, bp+1);
+        reverse(nums, bp + 1);
     }
 
     private void swap(int[] nums, int i, int j) {
@@ -34,9 +41,9 @@ class Solution {
     }
 
     private void reverse(int[] nums, int start) {
-        int end = nums.length-1;
+        int end = nums.length - 1;
 
-        while(start < end) {
+        while (start < end) {
             swap(nums, start, end);
             start++;
             end--;
